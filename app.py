@@ -54,7 +54,7 @@ st.html(
 
         .block-container {
             max-width: 1500px;
-            padding-top: 1.4rem;
+            padding-top: 4.8rem;
             padding-bottom: 4rem;
         }
 
@@ -93,6 +93,7 @@ st.html(
             box-shadow:
                 0 36px 100px rgba(0, 0, 0, 0.35),
                 inset 0 1px 0 rgba(255, 255, 255, 0.06);
+            margin-top: 18px;
             margin-bottom: 28px;
         }
 
@@ -429,6 +430,10 @@ st.html(
         }
 
         @media (max-width: 720px) {
+            .block-container {
+                padding-top: 3.8rem;
+            }
+
             .menu-grid {
                 grid-template-columns: 1fr;
             }
