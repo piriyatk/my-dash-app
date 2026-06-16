@@ -22,7 +22,7 @@ st.set_page_config(
 # CUSTOM CSS
 # =========================
 
-st.markdown(
+st.html(
     """
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700;800;900&display=swap');
@@ -43,8 +43,30 @@ st.markdown(
             --amber: #fbbf24;
         }
 
-        html, body, [class*="css"] {
+        html, body, .stApp, .block-container,
+        h1, h2, h3, h4, h5, h6,
+        p, div, label, button,
+        input, textarea, select {
             font-family: 'Noto Sans Thai', sans-serif;
+        }
+
+        [class*="material-symbols"],
+        [class*="Material Symbols"],
+        span[class*="material"],
+        span[data-testid="stIconMaterial"],
+        button[kind="header"] span,
+        button[data-testid*="baseButton-header"] span,
+        button[data-testid="collapsedControl"] span,
+        [data-testid="collapsedControl"] span {
+            font-family:
+                'Material Symbols Rounded',
+                'Material Symbols Outlined',
+                'Material Icons',
+                sans-serif !important;
+        }
+
+        button[data-testid="collapsedControl"] {
+            color: #e5e7eb !important;
         }
 
         .stApp {
@@ -58,7 +80,7 @@ st.markdown(
 
         .block-container {
             max-width: 1580px;
-            padding-top: 1.25rem;
+            padding-top: 4.8rem;
             padding-bottom: 3.5rem;
         }
 
@@ -93,6 +115,7 @@ st.markdown(
             box-shadow:
                 0 28px 90px rgba(0, 0, 0, 0.34),
                 inset 0 1px 0 rgba(255, 255, 255, 0.06);
+            margin-top: 18px;
             margin-bottom: 22px;
         }
 
@@ -408,6 +431,10 @@ st.markdown(
         }
 
         @media (max-width: 720px) {
+            .block-container {
+                padding-top: 3.8rem;
+            }
+
             .kpi-grid {
                 grid-template-columns: 1fr;
             }
@@ -417,8 +444,7 @@ st.markdown(
             }
         }
     </style>
-    """,
-    unsafe_allow_html=True
+    """
 )
 
 
