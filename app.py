@@ -17,8 +17,30 @@ st.html(
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700;800;900&display=swap');
 
-        * {
-            font-family: 'Noto Sans Thai', sans-serif !important;
+        html, body, .stApp, .block-container,
+        h1, h2, h3, h4, h5, h6,
+        p, div, label, button,
+        input, textarea, select {
+            font-family: 'Noto Sans Thai', sans-serif;
+        }
+
+        [class*="material-symbols"],
+        [class*="Material Symbols"],
+        span[class*="material"],
+        span[data-testid="stIconMaterial"],
+        button[kind="header"] span,
+        button[data-testid*="baseButton-header"] span,
+        button[data-testid="collapsedControl"] span,
+        [data-testid="collapsedControl"] span {
+            font-family:
+                'Material Symbols Rounded',
+                'Material Symbols Outlined',
+                'Material Icons',
+                sans-serif !important;
+        }
+
+        button[data-testid="collapsedControl"] {
+            color: #e5e7eb !important;
         }
 
         .stApp {
@@ -49,7 +71,13 @@ st.html(
             border-right: 1px solid rgba(148, 163, 184, 0.18);
         }
 
-        section[data-testid="stSidebar"] * {
+        section[data-testid="stSidebar"] p,
+        section[data-testid="stSidebar"] label,
+        section[data-testid="stSidebar"] h1,
+        section[data-testid="stSidebar"] h2,
+        section[data-testid="stSidebar"] h3,
+        section[data-testid="stSidebar"] h4,
+        section[data-testid="stSidebar"] div:not([data-testid="collapsedControl"]) {
             color: #e5e7eb;
         }
 
