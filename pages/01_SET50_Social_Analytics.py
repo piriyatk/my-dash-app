@@ -25,7 +25,23 @@ st.set_page_config(
 st.markdown(
     """
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700;800;900&display=swap');
+
+        :root {
+            --bg-0: #050816;
+            --bg-1: #07111f;
+            --card: rgba(15, 23, 42, 0.72);
+            --card-2: rgba(17, 24, 39, 0.76);
+            --line: rgba(148, 163, 184, 0.18);
+            --text: #f8fafc;
+            --muted: #94a3b8;
+            --blue: #38bdf8;
+            --cyan: #22d3ee;
+            --violet: #a78bfa;
+            --pink: #fb7185;
+            --green: #34d399;
+            --amber: #fbbf24;
+        }
 
         html, body, [class*="css"] {
             font-family: 'Noto Sans Thai', sans-serif;
@@ -33,42 +49,113 @@ st.markdown(
 
         .stApp {
             background:
-                radial-gradient(circle at 8% 8%, rgba(56, 189, 248, 0.18) 0%, transparent 32%),
-                radial-gradient(circle at 90% 12%, rgba(168, 85, 247, 0.16) 0%, transparent 34%),
-                radial-gradient(circle at 50% 95%, rgba(34, 197, 94, 0.10) 0%, transparent 35%),
-                linear-gradient(135deg, #020617 0%, #0f172a 48%, #020617 100%);
-            color: #e5e7eb;
+                radial-gradient(circle at 12% 8%, rgba(56, 189, 248, 0.18) 0%, transparent 28%),
+                radial-gradient(circle at 82% 12%, rgba(167, 139, 250, 0.18) 0%, transparent 30%),
+                radial-gradient(circle at 80% 88%, rgba(34, 211, 238, 0.10) 0%, transparent 28%),
+                linear-gradient(135deg, #030712 0%, #07111f 48%, #020617 100%);
+            color: var(--text);
+        }
+
+        .block-container {
+            max-width: 1580px;
+            padding-top: 1.25rem;
+            padding-bottom: 3.5rem;
+        }
+
+        header[data-testid="stHeader"] {
+            background: rgba(2, 6, 23, 0.48);
+            backdrop-filter: blur(18px);
+            border-bottom: 1px solid rgba(148, 163, 184, 0.10);
         }
 
         section[data-testid="stSidebar"] {
             background:
-                linear-gradient(180deg, rgba(15, 23, 42, 0.96), rgba(2, 6, 23, 0.96));
-            border-right: 1px solid rgba(148, 163, 184, 0.18);
+                radial-gradient(circle at 20% 0%, rgba(56, 189, 248, 0.16) 0%, transparent 28%),
+                linear-gradient(180deg, rgba(15, 23, 42, 0.98), rgba(2, 6, 23, 0.98));
+            border-right: 1px solid rgba(148, 163, 184, 0.16);
         }
 
-        .block-container {
-            padding-top: 2rem;
-            padding-bottom: 3rem;
+        section[data-testid="stSidebar"] h1,
+        section[data-testid="stSidebar"] h2,
+        section[data-testid="stSidebar"] h3 {
+            color: #f8fafc;
         }
 
-        .hero-card {
-            padding: 30px 32px;
-            border-radius: 28px;
+        section[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] p {
+            color: #cbd5e1;
+        }
+
+        .main-shell {
+            border-radius: 34px;
+            padding: 1px;
             background:
-                linear-gradient(135deg, rgba(15, 23, 42, 0.88), rgba(30, 41, 59, 0.55)),
-                radial-gradient(circle at top right, rgba(56, 189, 248, 0.22), transparent 35%);
-            border: 1px solid rgba(148, 163, 184, 0.20);
-            box-shadow: 0 24px 70px rgba(0, 0, 0, 0.32);
+                linear-gradient(135deg, rgba(56, 189, 248, 0.35), rgba(167, 139, 250, 0.22), rgba(15, 23, 42, 0.08));
+            box-shadow:
+                0 28px 90px rgba(0, 0, 0, 0.34),
+                inset 0 1px 0 rgba(255, 255, 255, 0.06);
             margin-bottom: 22px;
         }
 
+        .hero-card {
+            position: relative;
+            overflow: hidden;
+            padding: 34px 36px;
+            border-radius: 33px;
+            background:
+                radial-gradient(circle at 100% 0%, rgba(56, 189, 248, 0.22) 0%, transparent 32%),
+                radial-gradient(circle at 0% 100%, rgba(167, 139, 250, 0.18) 0%, transparent 34%),
+                linear-gradient(135deg, rgba(15, 23, 42, 0.90), rgba(17, 24, 39, 0.78));
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .hero-card:before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
+            transform: translateX(-100%);
+            animation: shine 8s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%); }
+            45% { transform: translateX(100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.55fr) minmax(300px, 0.7fr);
+            gap: 28px;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 12px;
+            border-radius: 999px;
+            background: rgba(56, 189, 248, 0.10);
+            border: 1px solid rgba(125, 211, 252, 0.24);
+            color: #bae6fd;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+        }
+
         .hero-title {
-            font-size: 48px;
-            font-weight: 800;
-            letter-spacing: -0.06em;
-            margin-bottom: 6px;
-            line-height: 1.06;
-            background: linear-gradient(90deg, #ffffff, #bae6fd, #c4b5fd);
+            font-size: clamp(38px, 4vw, 64px);
+            font-weight: 900;
+            letter-spacing: -0.07em;
+            line-height: 0.98;
+            margin: 0 0 14px 0;
+            background: linear-gradient(90deg, #ffffff 0%, #bae6fd 38%, #c4b5fd 72%, #ffffff 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -76,114 +163,260 @@ st.markdown(
         .hero-subtitle {
             color: #cbd5e1;
             font-size: 16px;
-            line-height: 1.7;
-            max-width: 980px;
+            line-height: 1.8;
+            max-width: 1000px;
+        }
+
+        .hero-panel {
+            border-radius: 26px;
+            padding: 22px;
+            background:
+                linear-gradient(135deg, rgba(2, 6, 23, 0.55), rgba(15, 23, 42, 0.70));
+            border: 1px solid rgba(148, 163, 184, 0.16);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+        }
+
+        .hero-panel-title {
+            color: #94a3b8;
+            font-size: 13px;
+            margin-bottom: 6px;
+        }
+
+        .hero-panel-value {
+            color: white;
+            font-size: 26px;
+            font-weight: 850;
+            letter-spacing: -0.04em;
+            margin-bottom: 12px;
+        }
+
+        .hero-panel-note {
+            color: #94a3b8;
+            font-size: 13px;
+            line-height: 1.6;
         }
 
         .pill-row {
-            margin-top: 18px;
+            margin-top: 20px;
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
         }
 
         .pill {
-            padding: 8px 12px;
+            padding: 9px 13px;
             border-radius: 999px;
             background: rgba(15, 23, 42, 0.72);
             border: 1px solid rgba(125, 211, 252, 0.20);
             color: #dbeafe;
             font-size: 13px;
+            font-weight: 650;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
         }
 
-        div[data-testid="stMetric"] {
-            background:
-                linear-gradient(135deg, rgba(15, 23, 42, 0.82), rgba(30, 41, 59, 0.58));
-            border: 1px solid rgba(148, 163, 184, 0.18);
-            padding: 18px 18px;
-            border-radius: 22px;
-            box-shadow: 0 18px 50px rgba(0, 0, 0, 0.22);
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 16px;
+            margin: 18px 0 18px 0;
         }
 
-        div[data-testid="stMetric"] label {
-            color: #cbd5e1 !important;
-            font-weight: 600;
-        }
-
-        div[data-testid="stMetricValue"] {
-            color: #ffffff !important;
-            font-weight: 800;
-        }
-
-        div[data-testid="stDataFrame"] {
-            border-radius: 18px;
+        .kpi-card {
+            position: relative;
             overflow: hidden;
-            border: 1px solid rgba(148, 163, 184, 0.18);
-            box-shadow: 0 16px 42px rgba(0, 0, 0, 0.18);
+            border-radius: 26px;
+            padding: 20px 20px 18px 20px;
+            background:
+                radial-gradient(circle at 100% 0%, rgba(56, 189, 248, 0.12) 0%, transparent 42%),
+                linear-gradient(145deg, rgba(15, 23, 42, 0.82), rgba(17, 24, 39, 0.62));
+            border: 1px solid rgba(148, 163, 184, 0.16);
+            box-shadow:
+                0 22px 60px rgba(0, 0, 0, 0.22),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        }
+
+        .kpi-card:after {
+            content: "";
+            position: absolute;
+            inset: auto 16px 0 16px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(56,189,248,0.72), rgba(167,139,250,0.72), transparent);
+            opacity: 0.55;
+        }
+
+        .kpi-icon {
+            width: 34px;
+            height: 34px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(56, 189, 248, 0.12);
+            border: 1px solid rgba(125, 211, 252, 0.24);
+            color: #7dd3fc;
+            font-size: 16px;
+            margin-bottom: 12px;
+        }
+
+        .kpi-label {
+            color: #94a3b8;
+            font-size: 13px;
+            font-weight: 650;
+            margin-bottom: 8px;
+        }
+
+        .kpi-value {
+            color: #ffffff;
+            font-size: 34px;
+            font-weight: 900;
+            letter-spacing: -0.06em;
+            line-height: 1;
+        }
+
+        .kpi-sub {
+            color: #64748b;
+            font-size: 12px;
+            margin-top: 8px;
         }
 
         .section-card {
-            padding: 22px;
-            border-radius: 24px;
-            background: rgba(15, 23, 42, 0.54);
+            position: relative;
+            border-radius: 30px;
+            padding: 24px;
+            background:
+                linear-gradient(145deg, rgba(15, 23, 42, 0.76), rgba(2, 6, 23, 0.62));
             border: 1px solid rgba(148, 163, 184, 0.16);
-            box-shadow: 0 20px 54px rgba(0, 0, 0, 0.18);
+            box-shadow:
+                0 28px 84px rgba(0, 0, 0, 0.24),
+                inset 0 1px 0 rgba(255,255,255,0.04);
             margin-top: 18px;
             margin-bottom: 18px;
         }
 
-        h1, h2, h3 {
-            letter-spacing: -0.04em;
+        .section-head {
+            display: flex;
+            justify-content: space-between;
+            gap: 18px;
+            align-items: flex-start;
+            margin-bottom: 18px;
+        }
+
+        .section-title {
+            color: #f8fafc;
+            font-size: 26px;
+            font-weight: 850;
+            letter-spacing: -0.05em;
+            margin-bottom: 4px;
+        }
+
+        .section-note {
+            color: #94a3b8;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .legend-row {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .legend-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 11px;
+            border-radius: 999px;
+            background: rgba(15,23,42,0.72);
+            border: 1px solid rgba(148,163,184,0.14);
+            color: #cbd5e1;
+            font-size: 12px;
+            font-weight: 650;
+        }
+
+        .dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 999px;
+            display: inline-block;
+        }
+
+        .dot-red { background: #fb7185; box-shadow: 0 0 16px rgba(251,113,133,0.9); }
+        .dot-blue { background: #38bdf8; box-shadow: 0 0 16px rgba(56,189,248,0.9); }
+        .dot-line { background: #60a5fa; box-shadow: 0 0 16px rgba(96,165,250,0.9); }
+
+        div[data-testid="stDataFrame"] {
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(148, 163, 184, 0.16);
+            box-shadow: 0 18px 50px rgba(0, 0, 0, 0.20);
         }
 
         .stTabs [data-baseweb="tab-list"] {
-            gap: 10px;
+            gap: 8px;
+            background: rgba(2, 6, 23, 0.32);
+            padding: 7px;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.14);
         }
 
         .stTabs [data-baseweb="tab"] {
             border-radius: 999px;
-            padding: 10px 18px;
-            background: rgba(15, 23, 42, 0.64);
-            border: 1px solid rgba(148, 163, 184, 0.14);
+            padding: 10px 20px;
+            background: transparent;
+            color: #cbd5e1;
+            font-weight: 750;
         }
 
         .stTabs [aria-selected="true"] {
-            background: linear-gradient(135deg, rgba(14, 165, 233, 0.30), rgba(168, 85, 247, 0.24));
-            border: 1px solid rgba(125, 211, 252, 0.35);
+            background:
+                linear-gradient(135deg, rgba(14, 165, 233, 0.34), rgba(168, 85, 247, 0.26));
+            color: #ffffff;
+            border: 1px solid rgba(125, 211, 252, 0.28);
+            box-shadow: 0 12px 34px rgba(14, 165, 233, 0.14);
+        }
+
+        hr {
+            border-color: rgba(148, 163, 184, 0.12);
         }
 
         .small-note {
             color: #94a3b8;
             font-size: 13px;
-            margin-top: -6px;
-            margin-bottom: 12px;
+            line-height: 1.7;
+            margin-top: -2px;
+            margin-bottom: 14px;
+        }
+
+        .footer-note {
+            color: #64748b;
+            font-size: 12px;
+            text-align: right;
+            margin-top: 8px;
+        }
+
+        @media (max-width: 1200px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .kpi-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 720px) {
+            .kpi-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-title {
+                font-size: 38px;
+            }
         }
     </style>
-    """,
-    unsafe_allow_html=True
-)
-
-
-# =========================
-# HERO
-# =========================
-
-st.markdown(
-    """
-    <div class="hero-card">
-        <div class="hero-title">SET50 Social Analytics</div>
-        <div class="hero-subtitle">
-            Dashboard วิเคราะห์เครือข่ายผู้ถือหุ้น SET50 จาก Neon Database
-            เพื่อดูความเชื่อมโยงระหว่างหุ้น ผู้ถือหุ้นรายใหญ่ กลุ่ม nominee และ node ที่มีอิทธิพลในเครือข่ายทุน
-        </div>
-        <div class="pill-row">
-            <div class="pill">Interactive 3D Network</div>
-            <div class="pill">PageRank</div>
-            <div class="pill">Degree Centrality</div>
-            <div class="pill">Major Shareholders</div>
-            <div class="pill">Neon PostgreSQL</div>
-        </div>
-    </div>
     """,
     unsafe_allow_html=True
 )
@@ -283,7 +516,8 @@ if df.empty:
 # SIDEBAR FILTERS
 # =========================
 
-st.sidebar.header("ตัวกรองข้อมูล")
+st.sidebar.markdown("## Control Panel")
+st.sidebar.caption("ปรับมุมมองเครือข่ายและชุดข้อมูลที่ต้องการวิเคราะห์")
 
 symbols = sorted(df["symbol"].dropna().unique().tolist())
 
@@ -318,7 +552,7 @@ top_edges = st.sidebar.slider(
     "จำนวนเส้นสูงสุดในกราฟ",
     min_value=20,
     max_value=500,
-    value=150,
+    value=120,
     step=10
 )
 
@@ -343,6 +577,9 @@ node_size_scale = st.sidebar.slider(
     step=1
 )
 
+st.sidebar.markdown("---")
+st.sidebar.caption("แนะนำ: ถ้ากราฟรก ให้ลดจำนวนเส้น หรือเพิ่มขั้นต่ำสัดส่วนถือหุ้น")
+
 
 # =========================
 # FILTER DATA
@@ -361,7 +598,7 @@ if filtered.empty:
 
 
 # =========================
-# KPI
+# KPI VALUES
 # =========================
 
 latest_update = filtered["created_at"].dropna().max()
@@ -369,13 +606,94 @@ latest_update_text = "-"
 if pd.notna(latest_update):
     latest_update_text = latest_update.strftime("%Y-%m-%d %H:%M")
 
-col1, col2, col3, col4, col5 = st.columns(5)
+stock_count = filtered["symbol"].nunique()
+holder_count = filtered["shareholder_name"].nunique()
+edge_count = len(filtered)
+total_percent = filtered["percent_num"].sum()
 
-col1.metric("จำนวนหุ้น", f"{filtered['symbol'].nunique():,}")
-col2.metric("จำนวนผู้ถือหุ้น", f"{filtered['shareholder_name'].nunique():,}")
-col3.metric("จำนวนความเชื่อมโยง", f"{len(filtered):,}")
-col4.metric("สัดส่วนถือหุ้นรวม", f"{filtered['percent_num'].sum():,.2f}%")
-col5.metric("อัปเดตล่าสุด", latest_update_text)
+
+# =========================
+# HERO
+# =========================
+
+st.markdown(
+    f"""
+    <div class="main-shell">
+        <div class="hero-card">
+            <div class="hero-grid">
+                <div>
+                    <div class="eyebrow">SET50 · CAPITAL NETWORK INTELLIGENCE</div>
+                    <div class="hero-title">Social Analytics<br/>Dashboard</div>
+                    <div class="hero-subtitle">
+                        วิเคราะห์โครงข่ายผู้ถือหุ้น SET50 จาก Neon Database เพื่อค้นหา hub สำคัญ
+                        กลุ่ม nominee ผู้ถือหุ้นร่วม และความสัมพันธ์เชิงอำนาจในเครือข่ายทุนไทย
+                    </div>
+                    <div class="pill-row">
+                        <div class="pill">Interactive 3D Network</div>
+                        <div class="pill">PageRank</div>
+                        <div class="pill">Degree Centrality</div>
+                        <div class="pill">Major Shareholders</div>
+                        <div class="pill">Neon PostgreSQL</div>
+                    </div>
+                </div>
+                <div class="hero-panel">
+                    <div class="hero-panel-title">Current View</div>
+                    <div class="hero-panel-value">{stock_count:,} Stocks · {holder_count:,} Holders</div>
+                    <div class="hero-panel-note">
+                        Mode: {graph_mode}<br/>
+                        Edge limit: {top_edges:,}<br/>
+                        Last sync: {latest_update_text}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
+
+# =========================
+# KPI CARDS
+# =========================
+
+st.markdown(
+    f"""
+    <div class="kpi-grid">
+        <div class="kpi-card">
+            <div class="kpi-icon">◆</div>
+            <div class="kpi-label">จำนวนหุ้นในมุมมองนี้</div>
+            <div class="kpi-value">{stock_count:,}</div>
+            <div class="kpi-sub">unique symbols</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-icon">●</div>
+            <div class="kpi-label">จำนวนผู้ถือหุ้น</div>
+            <div class="kpi-value">{holder_count:,}</div>
+            <div class="kpi-sub">unique shareholders</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-icon">↔</div>
+            <div class="kpi-label">จำนวนความเชื่อมโยง</div>
+            <div class="kpi-value">{edge_count:,}</div>
+            <div class="kpi-sub">stock-holder relations</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-icon">%</div>
+            <div class="kpi-label">สัดส่วนถือหุ้นรวม</div>
+            <div class="kpi-value">{total_percent:,.2f}%</div>
+            <div class="kpi-sub">sum of selected holdings</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-icon">⏱</div>
+            <div class="kpi-label">อัปเดตล่าสุด</div>
+            <div class="kpi-value" style="font-size: 25px;">{latest_update_text}</div>
+            <div class="kpi-sub">Neon table: set50</div>
+        </div>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
 
 # =========================
@@ -564,10 +882,23 @@ tab1, tab2, tab3 = st.tabs([
 
 
 with tab1:
-    st.markdown('<div class="section-card">', unsafe_allow_html=True)
-    st.subheader("อันดับผู้ถือหุ้นที่เชื่อมโยงกับ SET50 มากที่สุด")
     st.markdown(
-        '<div class="small-note">เรียงตามจำนวนหุ้น SET50 ที่ถือร่วม และสัดส่วนถือหุ้นรวม</div>',
+        """
+        <div class="section-card">
+            <div class="section-head">
+                <div>
+                    <div class="section-title">Major Shareholder Ranking</div>
+                    <div class="section-note">
+                        จัดอันดับผู้ถือหุ้นตามจำนวนหุ้น SET50 ที่เชื่อมโยง และสัดส่วนถือหุ้นรวมในชุดข้อมูลที่เลือก
+                    </div>
+                </div>
+                <div class="legend-row">
+                    <div class="legend-item"><span class="dot dot-blue"></span> Shareholder</div>
+                    <div class="legend-item"><span class="dot dot-red"></span> Stock</div>
+                </div>
+            </div>
+        </div>
+        """,
         unsafe_allow_html=True
     )
 
@@ -582,12 +913,26 @@ with tab1:
             "จำนวนหุ้นรวม": st.column_config.NumberColumn("จำนวนหุ้นรวม", format="%d"),
         }
     )
-    st.markdown('</div>', unsafe_allow_html=True)
 
-    st.markdown('<div class="section-card">', unsafe_allow_html=True)
-    st.subheader("Network Centrality")
+    st.markdown("<br/>", unsafe_allow_html=True)
+
     st.markdown(
-        '<div class="small-note">ค่า PageRank และ Degree Centrality ใช้ช่วยดู node ที่มีอิทธิพลในเครือข่าย</div>',
+        """
+        <div class="section-card">
+            <div class="section-head">
+                <div>
+                    <div class="section-title">Network Centrality</div>
+                    <div class="section-note">
+                        PageRank ใช้มอง node ที่มีอิทธิพลเชิงโครงข่าย ส่วน Degree ใช้มองจำนวนการเชื่อมโดยตรง
+                    </div>
+                </div>
+                <div class="legend-row">
+                    <div class="legend-item">PageRank</div>
+                    <div class="legend-item">Degree Centrality</div>
+                </div>
+            </div>
+        </div>
+        """,
         unsafe_allow_html=True
     )
 
@@ -603,22 +948,35 @@ with tab1:
             "ค่า PageRank": st.column_config.NumberColumn("ค่า PageRank", format="%.6f"),
         }
     )
-    st.markdown('</div>', unsafe_allow_html=True)
 
 
 with tab2:
-    st.markdown('<div class="section-card">', unsafe_allow_html=True)
-    st.subheader("Interactive 3D Network")
     st.markdown(
-        '<div class="small-note">ลากเพื่อหมุน | Scroll เพื่อซูม | Hover เพื่อดูรายละเอียด | หุ้น = แดง | ผู้ถือหุ้น = ฟ้า</div>',
+        """
+        <div class="section-card">
+            <div class="section-head">
+                <div>
+                    <div class="section-title">Interactive 3D Network</div>
+                    <div class="section-note">
+                        ลากเพื่อหมุน · Scroll เพื่อซูม · Hover เพื่อดูรายละเอียด node และ edge
+                    </div>
+                </div>
+                <div class="legend-row">
+                    <div class="legend-item"><span class="dot dot-red"></span> หุ้น</div>
+                    <div class="legend-item"><span class="dot dot-blue"></span> ผู้ถือหุ้น</div>
+                    <div class="legend-item"><span class="dot dot-line"></span> ความเชื่อมโยง</div>
+                </div>
+            </div>
+        </div>
+        """,
         unsafe_allow_html=True
     )
 
     pos = nx.spring_layout(
         G,
         dim=3,
-        k=0.9,
-        iterations=120,
+        k=0.95,
+        iterations=140,
         seed=42,
         weight="weight"
     )
@@ -630,7 +988,7 @@ with tab2:
         x1, y1, z1 = pos[v]
 
         weight = float(attr.get("weight", 1))
-        edge_width = min(max(weight / 4, 1), 7)
+        edge_width = min(max(weight / 5, 1.2), 7)
 
         if graph_mode == "หุ้น ↔ ผู้ถือหุ้น":
             hover_text = (
@@ -658,7 +1016,7 @@ with tab2:
                 mode="lines",
                 line=dict(
                     width=edge_width,
-                    color="rgba(96, 165, 250, 0.35)"
+                    color="rgba(96, 165, 250, 0.38)"
                 ),
                 hoverinfo="text",
                 hovertext=hover_text,
@@ -679,7 +1037,6 @@ with tab2:
 
         deg = G.degree(node)
         pr = pagerank.get(node, 0)
-
         node_type = G.nodes[node].get("node_type", "")
         label = G.nodes[node].get("label", str(node))
 
@@ -687,17 +1044,14 @@ with tab2:
         node_y.append(y)
         node_z.append(z)
 
-        node_size.append(8 + deg * node_size_scale)
+        node_size.append(9 + deg * node_size_scale)
 
         if node_type == "stock":
             node_color.append("#fb7185")
         else:
             node_color.append("#38bdf8")
 
-        if show_labels:
-            node_label.append(label[:22])
-        else:
-            node_label.append("")
+        node_label.append(label[:22] if show_labels else "")
 
         node_text.append(
             f"<b>{label}</b><br>"
@@ -719,10 +1073,10 @@ with tab2:
         marker=dict(
             size=node_size,
             color=node_color,
-            opacity=0.94,
+            opacity=0.96,
             line=dict(
-                width=1.4,
-                color="rgba(255,255,255,0.9)"
+                width=1.5,
+                color="rgba(255,255,255,0.95)"
             )
         ),
         textfont=dict(
@@ -737,28 +1091,19 @@ with tab2:
     )
 
     fig.update_layout(
-        height=860,
+        height=880,
         showlegend=False,
         hovermode="closest",
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(0,0,0,0)",
-        margin=dict(l=0, r=0, b=0, t=42),
+        margin=dict(l=0, r=0, b=0, t=32),
         scene=dict(
             bgcolor="rgba(0,0,0,0)",
             xaxis=dict(visible=False, showbackground=False, showgrid=False, showticklabels=False, zeroline=False),
             yaxis=dict(visible=False, showbackground=False, showgrid=False, showticklabels=False, zeroline=False),
             zaxis=dict(visible=False, showbackground=False, showgrid=False, showticklabels=False, zeroline=False),
             camera=dict(
-                eye=dict(x=1.55, y=1.65, z=1.25)
-            )
-        ),
-        title=dict(
-            text="Interactive 3D Network",
-            x=0.02,
-            y=0.98,
-            font=dict(
-                size=24,
-                color="white"
+                eye=dict(x=1.65, y=1.65, z=1.30)
             )
         )
     )
@@ -777,14 +1122,30 @@ with tab2:
         }
     )
 
-    st.markdown('</div>', unsafe_allow_html=True)
+    st.markdown(
+        '<div class="footer-note">Tip: ลดจำนวนเส้นหรือเพิ่มขั้นต่ำ % หุ้น เพื่อให้ network อ่านง่ายขึ้น</div>',
+        unsafe_allow_html=True
+    )
 
 
 with tab3:
-    st.markdown('<div class="section-card">', unsafe_allow_html=True)
-    st.subheader("ข้อมูลดิบจาก Neon")
     st.markdown(
-        '<div class="small-note">ข้อมูลที่ผ่านตัวกรองปัจจุบัน ใช้ตรวจสอบรายละเอียดรายหุ้นและแหล่งข้อมูล</div>',
+        """
+        <div class="section-card">
+            <div class="section-head">
+                <div>
+                    <div class="section-title">Raw Data from Neon</div>
+                    <div class="section-note">
+                        ข้อมูลดิบที่ผ่านตัวกรองปัจจุบัน ใช้ตรวจสอบรายละเอียดรายหุ้น ผู้ถือหุ้น และแหล่งข้อมูล
+                    </div>
+                </div>
+                <div class="legend-row">
+                    <div class="legend-item">PostgreSQL</div>
+                    <div class="legend-item">Table: set50</div>
+                </div>
+            </div>
+        </div>
+        """,
         unsafe_allow_html=True
     )
 
@@ -806,4 +1167,3 @@ with tab3:
             "จำนวนหุ้นแบบตัวเลข": st.column_config.NumberColumn("จำนวนหุ้นแบบตัวเลข", format="%d"),
         }
     )
-    st.markdown('</div>', unsafe_allow_html=True)
