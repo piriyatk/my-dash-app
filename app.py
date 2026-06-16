@@ -13,7 +13,7 @@ st.set_page_config(
 
 
 # =========================
-# CUSTOM CSS
+# CSS
 # =========================
 
 st.markdown(
@@ -21,42 +21,27 @@ st.markdown(
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700;800;900&display=swap');
 
-        :root {
-            --bg-0: #050816;
-            --bg-1: #07111f;
-            --card: rgba(15, 23, 42, 0.72);
-            --line: rgba(148, 163, 184, 0.18);
-            --text: #f8fafc;
-            --muted: #94a3b8;
-            --blue: #38bdf8;
-            --cyan: #22d3ee;
-            --violet: #a78bfa;
-            --pink: #fb7185;
-            --green: #34d399;
-            --amber: #fbbf24;
-        }
-
-        html, body, [class*="css"] {
+        * {
             font-family: 'Noto Sans Thai', sans-serif;
         }
 
         .stApp {
             background:
-                radial-gradient(circle at 10% 8%, rgba(56, 189, 248, 0.20) 0%, transparent 28%),
-                radial-gradient(circle at 86% 10%, rgba(167, 139, 250, 0.20) 0%, transparent 32%),
-                radial-gradient(circle at 82% 86%, rgba(34, 211, 238, 0.10) 0%, transparent 30%),
-                linear-gradient(135deg, #030712 0%, #07111f 48%, #020617 100%);
-            color: var(--text);
+                radial-gradient(circle at 12% 8%, rgba(56, 189, 248, 0.22) 0%, transparent 28%),
+                radial-gradient(circle at 85% 10%, rgba(168, 85, 247, 0.20) 0%, transparent 30%),
+                radial-gradient(circle at 80% 85%, rgba(34, 211, 238, 0.10) 0%, transparent 28%),
+                linear-gradient(135deg, #020617 0%, #07111f 45%, #020617 100%);
+            color: #f8fafc;
         }
 
         .block-container {
-            max-width: 1520px;
-            padding-top: 1.4rem;
-            padding-bottom: 3.5rem;
+            max-width: 1500px;
+            padding-top: 1.2rem;
+            padding-bottom: 4rem;
         }
 
         header[data-testid="stHeader"] {
-            background: rgba(2, 6, 23, 0.50);
+            background: rgba(2, 6, 23, 0.55);
             backdrop-filter: blur(18px);
             border-bottom: 1px solid rgba(148, 163, 184, 0.10);
         }
@@ -65,38 +50,37 @@ st.markdown(
             background:
                 radial-gradient(circle at 20% 0%, rgba(56, 189, 248, 0.16) 0%, transparent 30%),
                 linear-gradient(180deg, rgba(15, 23, 42, 0.98), rgba(2, 6, 23, 0.98));
-            border-right: 1px solid rgba(148, 163, 184, 0.16);
+            border-right: 1px solid rgba(148, 163, 184, 0.18);
         }
 
         .hero-shell {
             border-radius: 34px;
             padding: 1px;
             background:
-                linear-gradient(135deg, rgba(56, 189, 248, 0.38), rgba(167, 139, 250, 0.24), rgba(15, 23, 42, 0.08));
+                linear-gradient(135deg, rgba(56, 189, 248, 0.42), rgba(168, 85, 247, 0.30), rgba(15, 23, 42, 0.06));
             box-shadow:
-                0 30px 90px rgba(0, 0, 0, 0.36),
+                0 32px 100px rgba(0, 0, 0, 0.35),
                 inset 0 1px 0 rgba(255, 255, 255, 0.06);
-            margin-bottom: 22px;
+            margin-bottom: 26px;
         }
 
         .hero-card {
             position: relative;
             overflow: hidden;
             border-radius: 33px;
-            padding: 42px 42px;
+            padding: 42px;
             background:
-                radial-gradient(circle at 100% 0%, rgba(56, 189, 248, 0.22) 0%, transparent 34%),
-                radial-gradient(circle at 0% 100%, rgba(167, 139, 250, 0.20) 0%, transparent 36%),
+                radial-gradient(circle at 100% 0%, rgba(56, 189, 248, 0.23) 0%, transparent 34%),
+                radial-gradient(circle at 0% 100%, rgba(168, 85, 247, 0.20) 0%, transparent 36%),
                 linear-gradient(135deg, rgba(15, 23, 42, 0.92), rgba(17, 24, 39, 0.80));
             border: 1px solid rgba(255, 255, 255, 0.06);
         }
 
-        .hero-card:before {
+        .hero-card::before {
             content: "";
             position: absolute;
             inset: 0;
-            background:
-                linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.07), transparent);
             transform: translateX(-100%);
             animation: shine 8s infinite;
         }
@@ -111,34 +95,33 @@ st.markdown(
             position: relative;
             z-index: 2;
             display: grid;
-            grid-template-columns: minmax(0, 1.45fr) minmax(300px, 0.8fr);
-            gap: 32px;
+            grid-template-columns: minmax(0, 1.45fr) minmax(320px, 0.75fr);
+            gap: 34px;
             align-items: center;
         }
 
         .eyebrow {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            padding: 7px 12px;
+            padding: 7px 13px;
             border-radius: 999px;
             background: rgba(56, 189, 248, 0.10);
             border: 1px solid rgba(125, 211, 252, 0.24);
             color: #bae6fd;
             font-size: 12px;
             font-weight: 800;
-            letter-spacing: 0.08em;
+            letter-spacing: 0.09em;
             text-transform: uppercase;
             margin-bottom: 16px;
         }
 
         .hero-title {
-            font-size: clamp(42px, 5vw, 76px);
+            font-size: clamp(44px, 5.4vw, 78px);
             font-weight: 900;
-            letter-spacing: -0.075em;
-            line-height: 0.98;
-            margin: 0 0 18px 0;
-            background: linear-gradient(90deg, #ffffff 0%, #bae6fd 34%, #c4b5fd 72%, #ffffff 100%);
+            letter-spacing: -0.078em;
+            line-height: 0.96;
+            margin-bottom: 18px;
+            background: linear-gradient(90deg, #ffffff 0%, #bae6fd 36%, #c4b5fd 76%, #ffffff 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -146,41 +129,8 @@ st.markdown(
         .hero-subtitle {
             color: #cbd5e1;
             font-size: 17px;
-            line-height: 1.85;
-            max-width: 960px;
-        }
-
-        .hero-panel {
-            border-radius: 28px;
-            padding: 24px;
-            background:
-                linear-gradient(135deg, rgba(2, 6, 23, 0.55), rgba(15, 23, 42, 0.72));
-            border: 1px solid rgba(148, 163, 184, 0.16);
-            box-shadow:
-                inset 0 1px 0 rgba(255,255,255,0.05),
-                0 22px 60px rgba(0,0,0,0.20);
-        }
-
-        .panel-label {
-            color: #94a3b8;
-            font-size: 13px;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        .panel-value {
-            color: #ffffff;
-            font-size: 30px;
-            font-weight: 900;
-            letter-spacing: -0.05em;
-            line-height: 1.12;
-            margin-bottom: 14px;
-        }
-
-        .panel-note {
-            color: #94a3b8;
-            font-size: 13px;
-            line-height: 1.7;
+            line-height: 1.9;
+            max-width: 980px;
         }
 
         .pill-row {
@@ -191,7 +141,7 @@ st.markdown(
         }
 
         .pill {
-            padding: 9px 13px;
+            padding: 9px 14px;
             border-radius: 999px;
             background: rgba(15, 23, 42, 0.72);
             border: 1px solid rgba(125, 211, 252, 0.20);
@@ -201,123 +151,164 @@ st.markdown(
             box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
         }
 
-        .section-title {
-            font-size: 28px;
+        .hero-panel {
+            border-radius: 28px;
+            padding: 25px;
+            background:
+                linear-gradient(135deg, rgba(2, 6, 23, 0.60), rgba(15, 23, 42, 0.78));
+            border: 1px solid rgba(148, 163, 184, 0.16);
+            box-shadow:
+                inset 0 1px 0 rgba(255,255,255,0.05),
+                0 22px 60px rgba(0,0,0,0.20);
+        }
+
+        .panel-label {
+            color: #94a3b8;
+            font-size: 13px;
+            font-weight: 750;
+            margin-bottom: 8px;
+        }
+
+        .panel-value {
+            color: #ffffff;
+            font-size: 30px;
             font-weight: 900;
-            letter-spacing: -0.055em;
+            letter-spacing: -0.05em;
+            line-height: 1.15;
+            margin-bottom: 14px;
+        }
+
+        .panel-note {
+            color: #94a3b8;
+            font-size: 13px;
+            line-height: 1.75;
+        }
+
+        .section-title {
             color: #f8fafc;
-            margin: 26px 0 6px 0;
+            font-size: 30px;
+            font-weight: 900;
+            letter-spacing: -0.06em;
+            margin: 28px 0 6px 0;
         }
 
         .section-subtitle {
             color: #94a3b8;
             font-size: 14px;
-            line-height: 1.7;
+            line-height: 1.75;
             margin-bottom: 18px;
         }
 
         .menu-grid {
             display: grid;
             grid-template-columns: repeat(4, minmax(0, 1fr));
-            gap: 16px;
+            gap: 18px;
             margin-top: 18px;
-            margin-bottom: 22px;
+            margin-bottom: 26px;
         }
 
         .menu-card {
             position: relative;
             overflow: hidden;
-            min-height: 210px;
-            border-radius: 28px;
-            padding: 24px;
+            min-height: 245px;
+            border-radius: 30px;
+            padding: 25px;
             background:
-                radial-gradient(circle at 100% 0%, rgba(56, 189, 248, 0.12) 0%, transparent 42%),
-                linear-gradient(145deg, rgba(15, 23, 42, 0.82), rgba(17, 24, 39, 0.62));
+                radial-gradient(circle at 100% 0%, rgba(56, 189, 248, 0.14) 0%, transparent 42%),
+                linear-gradient(145deg, rgba(15, 23, 42, 0.86), rgba(17, 24, 39, 0.66));
             border: 1px solid rgba(148, 163, 184, 0.16);
             box-shadow:
-                0 24px 70px rgba(0, 0, 0, 0.24),
+                0 24px 70px rgba(0, 0, 0, 0.25),
                 inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
         }
 
-        .menu-card:after {
+        .menu-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(125, 211, 252, 0.35);
+            box-shadow: 0 30px 90px rgba(14, 165, 233, 0.16);
+        }
+
+        .menu-card::after {
             content: "";
             position: absolute;
             inset: auto 18px 0 18px;
             height: 2px;
-            background: linear-gradient(90deg, transparent, rgba(56,189,248,0.72), rgba(167,139,250,0.72), transparent);
-            opacity: 0.55;
+            background: linear-gradient(90deg, transparent, rgba(56,189,248,0.78), rgba(168,85,247,0.78), transparent);
+            opacity: 0.70;
         }
 
         .menu-icon {
-            width: 42px;
-            height: 42px;
-            border-radius: 16px;
+            width: 44px;
+            height: 44px;
+            border-radius: 17px;
             display: flex;
             align-items: center;
             justify-content: center;
             background: rgba(56, 189, 248, 0.12);
             border: 1px solid rgba(125, 211, 252, 0.24);
             color: #7dd3fc;
-            font-size: 19px;
+            font-size: 20px;
+            font-weight: 900;
             margin-bottom: 18px;
         }
 
         .menu-title {
             color: #ffffff;
-            font-size: 20px;
-            font-weight: 850;
-            letter-spacing: -0.045em;
+            font-size: 21px;
+            font-weight: 900;
+            letter-spacing: -0.05em;
             margin-bottom: 10px;
         }
 
         .menu-desc {
             color: #94a3b8;
             font-size: 13px;
-            line-height: 1.7;
-            min-height: 66px;
+            line-height: 1.75;
+            min-height: 86px;
         }
 
         .status {
             display: inline-flex;
             align-items: center;
             gap: 7px;
-            padding: 7px 10px;
+            padding: 7px 11px;
             border-radius: 999px;
             background: rgba(34, 197, 94, 0.10);
-            border: 1px solid rgba(74, 222, 128, 0.18);
+            border: 1px solid rgba(74, 222, 128, 0.20);
             color: #bbf7d0;
             font-size: 12px;
-            font-weight: 750;
-            margin-top: 14px;
+            font-weight: 800;
+            margin-top: 16px;
         }
 
         .status-wip {
             background: rgba(251, 191, 36, 0.10);
-            border: 1px solid rgba(251, 191, 36, 0.18);
+            border: 1px solid rgba(251, 191, 36, 0.20);
             color: #fde68a;
         }
 
         .insight-grid {
             display: grid;
             grid-template-columns: 1.1fr 0.9fr;
-            gap: 16px;
-            margin-top: 18px;
+            gap: 18px;
+            margin-top: 20px;
         }
 
         .info-card {
-            border-radius: 28px;
-            padding: 26px;
+            border-radius: 30px;
+            padding: 28px;
             background:
-                linear-gradient(145deg, rgba(15, 23, 42, 0.78), rgba(2, 6, 23, 0.62));
+                linear-gradient(145deg, rgba(15, 23, 42, 0.82), rgba(2, 6, 23, 0.64));
             border: 1px solid rgba(148, 163, 184, 0.16);
             box-shadow:
-                0 26px 80px rgba(0, 0, 0, 0.22),
+                0 26px 80px rgba(0, 0, 0, 0.24),
                 inset 0 1px 0 rgba(255,255,255,0.04);
         }
 
         .info-title {
             color: #f8fafc;
-            font-size: 24px;
+            font-size: 25px;
             font-weight: 900;
             letter-spacing: -0.055em;
             margin-bottom: 10px;
@@ -326,30 +317,30 @@ st.markdown(
         .info-desc {
             color: #94a3b8;
             font-size: 14px;
-            line-height: 1.8;
+            line-height: 1.85;
         }
 
         .step-list {
             display: grid;
-            gap: 12px;
-            margin-top: 16px;
+            gap: 13px;
+            margin-top: 18px;
         }
 
         .step {
             display: grid;
-            grid-template-columns: 34px 1fr;
-            gap: 12px;
+            grid-template-columns: 38px 1fr;
+            gap: 13px;
             align-items: start;
-            padding: 14px;
-            border-radius: 18px;
-            background: rgba(15, 23, 42, 0.58);
+            padding: 15px;
+            border-radius: 20px;
+            background: rgba(15, 23, 42, 0.60);
             border: 1px solid rgba(148, 163, 184, 0.12);
         }
 
         .step-no {
-            width: 34px;
-            height: 34px;
-            border-radius: 13px;
+            width: 38px;
+            height: 38px;
+            border-radius: 15px;
             background: rgba(56, 189, 248, 0.12);
             border: 1px solid rgba(125, 211, 252, 0.20);
             color: #7dd3fc;
@@ -357,29 +348,30 @@ st.markdown(
             align-items: center;
             justify-content: center;
             font-weight: 900;
+            font-size: 13px;
         }
 
         .step-text {
             color: #cbd5e1;
             font-size: 13px;
-            line-height: 1.7;
+            line-height: 1.75;
         }
 
         .cta-card {
-            border-radius: 30px;
-            padding: 28px;
+            border-radius: 32px;
+            padding: 30px;
             background:
-                radial-gradient(circle at 0% 0%, rgba(56, 189, 248, 0.18), transparent 36%),
-                radial-gradient(circle at 100% 100%, rgba(167, 139, 250, 0.18), transparent 36%),
-                linear-gradient(135deg, rgba(15, 23, 42, 0.88), rgba(17, 24, 39, 0.72));
+                radial-gradient(circle at 0% 0%, rgba(56, 189, 248, 0.20), transparent 36%),
+                radial-gradient(circle at 100% 100%, rgba(168, 85, 247, 0.20), transparent 36%),
+                linear-gradient(135deg, rgba(15, 23, 42, 0.90), rgba(17, 24, 39, 0.74));
             border: 1px solid rgba(148, 163, 184, 0.18);
-            box-shadow: 0 28px 84px rgba(0,0,0,0.24);
-            margin-top: 18px;
+            box-shadow: 0 28px 84px rgba(0,0,0,0.26);
+            margin-top: 22px;
         }
 
         .cta-title {
             color: white;
-            font-size: 25px;
+            font-size: 27px;
             font-weight: 900;
             letter-spacing: -0.055em;
             margin-bottom: 8px;
@@ -388,7 +380,7 @@ st.markdown(
         .cta-desc {
             color: #94a3b8;
             font-size: 14px;
-            line-height: 1.8;
+            line-height: 1.85;
         }
 
         @media (max-width: 1200px) {
@@ -430,11 +422,13 @@ st.sidebar.success("Dashboard พร้อมใช้งาน")
 st.sidebar.info("เลือกหน้าได้จากเมนูด้านซ้าย")
 
 st.sidebar.markdown("---")
-st.sidebar.caption("Data Source: Neon PostgreSQL · Updated by GitHub Actions")
+st.sidebar.caption("Data Source: Neon PostgreSQL")
+st.sidebar.caption("Automation: GitHub Actions")
+st.sidebar.caption("Frontend: Streamlit Cloud")
 
 
 # =========================
-# HERO
+# MAIN HTML
 # =========================
 
 st.markdown(
@@ -444,9 +438,9 @@ st.markdown(
             <div class="hero-grid">
                 <div>
                     <div class="eyebrow">SET50 · CAPITAL NETWORK INTELLIGENCE</div>
-                    <div class="hero-title">SET50<br/>Dashboard</div>
+                    <div class="hero-title">SET50<br>Dashboard</div>
                     <div class="hero-subtitle">
-                        ระบบวิเคราะห์ข้อมูลผู้ถือหุ้น SET50 จาก Neon Database ออกแบบสำหรับสำรวจความสัมพันธ์
+                        ระบบวิเคราะห์ข้อมูลผู้ถือหุ้น SET50 จาก Neon Database สำหรับสำรวจความสัมพันธ์
                         ระหว่างหุ้น ผู้ถือหุ้นรายใหญ่ กลุ่ม nominee และ node สำคัญในเครือข่ายทุนไทย
                     </div>
                     <div class="pill-row">
@@ -459,7 +453,7 @@ st.markdown(
                 </div>
                 <div class="hero-panel">
                     <div class="panel-label">Current Module</div>
-                    <div class="panel-value">Social Analytics<br/>พร้อมใช้งาน</div>
+                    <div class="panel-value">Social Analytics<br>พร้อมใช้งาน</div>
                     <div class="panel-note">
                         ใช้เมนูด้านซ้ายเพื่อเข้าสู่หน้า SET50 Social Analytics
                         และในอนาคตสามารถเพิ่มหน้าใหม่ในโฟลเดอร์ pages ได้ทันที
@@ -468,23 +462,12 @@ st.markdown(
             </div>
         </div>
     </div>
-    """,
-    unsafe_allow_html=True
-)
 
+    <div class="section-title">เมนูหลัก</div>
+    <div class="section-subtitle">
+        เลือกหน้าวิเคราะห์จากเมนูด้านซ้าย หรือใช้การ์ดด้านล่างเป็นแผนผังระบบ
+    </div>
 
-# =========================
-# MENU CARDS
-# =========================
-
-st.markdown('<div class="section-title">เมนูหลัก</div>', unsafe_allow_html=True)
-st.markdown(
-    '<div class="section-subtitle">เลือกหน้าวิเคราะห์จากเมนูด้านซ้าย หรือใช้การ์ดด้านล่างเป็นแผนผังระบบ</div>',
-    unsafe_allow_html=True
-)
-
-st.markdown(
-    """
     <div class="menu-grid">
         <div class="menu-card">
             <div class="menu-icon">◎</div>
@@ -526,19 +509,12 @@ st.markdown(
             <div class="status status-wip">● Coming soon</div>
         </div>
     </div>
-    """,
-    unsafe_allow_html=True
-)
 
+    <div class="section-title">ออกแบบมาเพื่อวิเคราะห์อะไร</div>
+    <div class="section-subtitle">
+        เปลี่ยนข้อมูลผู้ถือหุ้นแบบตาราง ให้กลายเป็นภาพเครือข่ายที่อ่านความสัมพันธ์ได้เร็วขึ้น
+    </div>
 
-# =========================
-# INSIGHT SECTION
-# =========================
-
-st.markdown('<div class="section-title">ออกแบบมาเพื่อวิเคราะห์อะไร</div>', unsafe_allow_html=True)
-
-st.markdown(
-    """
     <div class="insight-grid">
         <div class="info-card">
             <div class="info-title">จากตารางผู้ถือหุ้น → เครือข่ายทุน</div>
@@ -599,17 +575,7 @@ st.markdown(
             </div>
         </div>
     </div>
-    """,
-    unsafe_allow_html=True
-)
 
-
-# =========================
-# CTA
-# =========================
-
-st.markdown(
-    """
     <div class="cta-card">
         <div class="cta-title">เริ่มใช้งาน</div>
         <div class="cta-desc">
