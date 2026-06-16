@@ -180,26 +180,19 @@ async def extract_shareholder_table_from_page(page, symbol, url):
     rows = await page.evaluate(
         """
         () => {
-            const tables = [...document.querySelectorAll("table")];
             const result = [];
 
+            const normalize = (x) =>
+                (x || "").replace(/\\s+/g, " ").trim();
+
+            const tables = [...document.querySelectorAll("table")];
+
             for (const table of tables) {
-                const tableText = table.innerText || "";
-
-                const looksLikeShareholderTable =
-                    tableText.includes("ผู้ถือหุ้น") &&
-                    tableText.includes("จำนวนหุ้น") &&
-                    tableText.includes("%หุ้น");
-
-                if (!looksLikeShareholderTable) {
-                    continue;
-                }
-
-                const trs = [...table.querySelectorAll("tbody tr")];
+                const trs = [...table.querySelectorAll("tbody tr, tr")];
 
                 for (const tr of trs) {
                     const cells = [...tr.querySelectorAll("td")].map(td =>
-                        (td.innerText || "").replace(/\\s+/g, " ").trim()
+                        normalize(td.innerText)
                     );
 
                     if (cells.length < 4) {
@@ -216,6 +209,10 @@ async def extract_shareholder_table_from_page(page, symbol, url):
                     }
 
                     if (!shareholder || shareholder === "ไม่มีข้อมูล") {
+                        continue;
+                    }
+
+                    if (!shares || !percent) {
                         continue;
                     }
 
@@ -237,6 +234,8 @@ async def extract_shareholder_table_from_page(page, symbol, url):
         return None
 
     df = pd.DataFrame(rows)
+    df = df.drop_duplicates()
+
     df.insert(0, "Symbol", symbol)
     df["SourceURL"] = url
 
@@ -255,6 +254,14 @@ async def fetch_major_shareholders(context, symbol, sem):
         try:
             await safe_goto(page, url)
 
+            # ช่วยให้บางหน้าที่ layout โหลดช้า เช่น TCAP / TIDLOR / TISCO แสดงตารางทัน
+            try:
+                await page.wait_for_timeout(3000)
+                await page.mouse.wheel(0, 2500)
+                await page.wait_for_timeout(2000)
+            except Exception:
+                pass
+
             try:
                 await page.wait_for_function(
                     """
@@ -267,7 +274,7 @@ async def fetch_major_shareholders(context, symbol, sem):
                             text.includes("ผู้ถือหุ้น");
 
                         const hasRealRows =
-                            [...document.querySelectorAll("table tbody tr")]
+                            [...document.querySelectorAll("table tbody tr, table tr")]
                                 .some(tr => {
                                     const cells = [...tr.querySelectorAll("td")].map(td =>
                                         (td.innerText || "").replace(/\\s+/g, " ").trim()
@@ -287,11 +294,16 @@ async def fetch_major_shareholders(context, symbol, sem):
             df = None
 
             # retry เผื่อ SET โหลดข้อมูลช้า
-            for _ in range(25):
+            for _ in range(30):
                 df = await extract_shareholder_table_from_page(page, symbol, url)
 
                 if df is not None and len(df) > 0:
                     break
+
+                try:
+                    await page.mouse.wheel(0, 1200)
+                except Exception:
+                    pass
 
                 await page.wait_for_timeout(1000)
 
