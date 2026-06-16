@@ -2,6 +2,7 @@ from playwright.async_api import async_playwright
 import pandas as pd
 import asyncio
 import re
+import os
 
 from sqlalchemy import create_engine, text
 
@@ -13,9 +14,8 @@ from sqlalchemy import create_engine, text
 SET50_URL = "https://www.set.or.th/th/market/index/set50/overview"
 SHAREHOLDER_URL = "https://www.set.or.th/th/market/product/stock/quote/{symbol}/major-shareholders"
 
-# วาง Connection string จาก Neon ตรงนี้
-# ตัวอย่าง:
-# DATABASE_URL = """postgresql://neondb_owner:xxxxx@ep-xxxxx-pooler.c-8.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require"""
+# อ่าน Connection string จาก GitHub Secrets หรือ Environment Variable
+# GitHub Actions ต้องตั้ง Secret ชื่อ DATABASE_URL
 DATABASE_URL = os.getenv("DATABASE_URL", "")
 
 # ชื่อตารางใน Neon
@@ -24,13 +24,14 @@ TABLE_NAME = "set50"
 # ถ้าดึงนิ่งแล้วค่อยลองเพิ่มเป็น 5
 CONCURRENT_PAGES = 3
 
+
 # =========================
 # DATABASE ENGINE
 # =========================
 
 def get_engine():
-    if DATABASE_URL.strip() == "" or "วาง_connection_string" in DATABASE_URL:
-        raise Exception("ยังไม่ได้ใส่ DATABASE_URL จาก Neon")
+    if DATABASE_URL.strip() == "":
+        raise Exception("ยังไม่ได้ตั้งค่า DATABASE_URL จาก Neon ใน GitHub Secrets")
 
     return create_engine(
         DATABASE_URL,
@@ -74,7 +75,7 @@ async def safe_goto(page, url, timeout=120000, retries=4):
 
             try:
                 await page.wait_for_timeout(3000)
-            except:
+            except Exception:
                 pass
 
             try:
@@ -90,7 +91,7 @@ async def safe_goto(page, url, timeout=120000, retries=4):
 
                 try:
                     await page.wait_for_timeout(5000)
-                except:
+                except Exception:
                     pass
 
     raise last_error
@@ -280,7 +281,7 @@ async def fetch_major_shareholders(context, symbol, sem):
                     """,
                     timeout=60000
                 )
-            except:
+            except Exception:
                 pass
 
             df = None
@@ -296,7 +297,7 @@ async def fetch_major_shareholders(context, symbol, sem):
 
             try:
                 body_text = await page.locator("body").inner_text(timeout=10000)
-            except:
+            except Exception:
                 body_text = ""
 
             as_of_date = extract_as_of_date(body_text)
@@ -328,7 +329,7 @@ async def fetch_major_shareholders(context, symbol, sem):
         finally:
             try:
                 await page.close()
-            except:
+            except Exception:
                 pass
 
 
